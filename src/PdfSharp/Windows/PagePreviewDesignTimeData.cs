@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETCOREAPP
+
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,3 +28,5 @@ namespace PdfSharp.Windows
     }
   }
 }
+
+#endif

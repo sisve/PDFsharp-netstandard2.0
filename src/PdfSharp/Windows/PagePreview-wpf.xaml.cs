@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !NETCOREAPP
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
@@ -157,3 +159,5 @@ namespace PdfSharp.Windows
       DependencyProperty.Register("PageVisibility", typeof(Visibility), typeof(PagePreview), null);
   }
 }
+
+#endif
