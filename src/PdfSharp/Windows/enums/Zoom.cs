@@ -27,7 +27,7 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !NETCOREAPP
+#if !NETSTANDARD2_0
 
 namespace PdfSharp.Windows
 {
