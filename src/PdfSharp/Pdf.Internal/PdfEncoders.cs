@@ -68,7 +68,7 @@ namespace PdfSharp.Pdf.Internal
             {
                 if (_winAnsiEncoding == null)
                 {
-#if !SILVERLIGHT && !NETFX_CORE && !UWP
+#if !SILVERLIGHT && !NETFX_CORE && !UWP && !CORE
                     // Use .net encoder if available.
                     _winAnsiEncoding = Encoding.GetEncoding(1252);
 #else
@@ -464,7 +464,7 @@ namespace PdfSharp.Pdf.Internal
         }
 
         /// <summary>
-        /// Converts WinAnsi to DocEncode characters. Incomplete, just maps € and some other characters.
+        /// Converts WinAnsi to DocEncode characters. Incomplete, just maps Â€ and some other characters.
         /// </summary>
         static byte[] docencode_______ = new byte[256]
         {
