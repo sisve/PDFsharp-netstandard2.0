@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>3.0.0.0</Version>
+    <Version>1.0.0.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>$(DefineConstants);CORE;CORE_WITH_GDI</DefineConstants>
     <AssemblyName>PdfSharp.netstandard2.0</AssemblyName>
-    <PackageId>PdfSharp.netstandard2.0</PackageId>
+    <PackageId>PdfSharp.netstandard</PackageId>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -14,6 +14,9 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <RootNamespace>YetaWF.Modules.AddThis</RootNamespace>
+    <Authors>PdfSharp.netstandard</Authors>
+    <PackageProjectUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</RepositoryUrl>
   </PropertyGroup>
 
 
