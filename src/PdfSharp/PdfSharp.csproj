@@ -13,10 +13,11 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <RootNamespace>YetaWF.Modules.AddThis</RootNamespace>
+    <RootNamespace>PdfSharp</RootNamespace>
     <Authors>PdfSharp.netstandard</Authors>
     <PackageProjectUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 
@@ -35,6 +36,7 @@
     <Compile Remove="Drawing.BarCodes\DataMatrixImage.opensource.cs" />
     <Compile Remove="Forms\PagePreview.cs" />
     <Compile Remove="Forms\PagePreviewCanvas.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
 
@@ -45,6 +47,23 @@
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
