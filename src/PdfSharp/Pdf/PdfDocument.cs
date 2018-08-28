@@ -309,8 +309,7 @@ namespace PdfSharp.Pdf
                 throw new InvalidOperationException(PSSR.CannotModify);
 
             // TODO: more diagnostic checks
-            string message = "";
-            if (!CanSave(ref message))
+            if (!CanSave(out string message))
                 throw new PdfSharpException(message);
 
             // Get security handler if document gets encrypted.
@@ -483,9 +482,9 @@ namespace PdfSharp.Pdf
         /// <summary>
         /// Determines whether the document can be saved.
         /// </summary>
-        public bool CanSave(ref string message)
+        public bool CanSave(out string message)
         {
-            if (!SecuritySettings.CanSave(ref message))
+            if (!SecuritySettings.CanSave(out message))
                 return false;
 
             return true;
