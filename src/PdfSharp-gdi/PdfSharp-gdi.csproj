@@ -1050,9 +1050,6 @@
     <Compile Include="..\PdfSharp\Pdf\TrimMargins.cs">
       <Link>Pdf\TrimMargins.cs</Link>
     </Compile>
-    <Compile Include="..\PdfSharp\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="..\PdfSharp\root\enums\PageOrientation.cs">
       <Link>root\enums\PageOrientation.cs</Link>
     </Compile>
@@ -1180,6 +1177,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Resources\images\" />
     <Folder Include="SharpZipLib\SharpZip\" />
   </ItemGroup>

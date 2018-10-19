@@ -366,9 +366,6 @@
     <Compile Include="..\PdfSharp.Charting\Charting\XValues.cs">
       <Link>Charting\XValues.cs</Link>
     </Compile>
-    <Compile Include="..\PdfSharp.Charting\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="..\pdfsharp\root\VersionInfo.cs">
       <Link>root\VersionInfo.cs</Link>
     </Compile>
@@ -404,6 +401,9 @@
       <Project>{3f01920c-1117-4e1b-9c01-54eb82e5a1d1}</Project>
       <Name>PdfSharp-gdi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

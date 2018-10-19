@@ -1457,8 +1457,8 @@ namespace PdfSharp.Pdf.Advanced
             /// (Required for images, except those that use the JPXDecode filter; not allowed for image masks)
             /// The color space in which image samples are specified; it can be any type of color space except
             /// Pattern. If the image uses the JPXDecode filter, this entry is optional:
-            /// • If ColorSpace is present, any color space specifications in the JPEG2000 data are ignored.
-            /// • If ColorSpace is absent, the color space specifications in the JPEG2000 data are used.
+            /// ?If ColorSpace is present, any color space specifications in the JPEG2000 data are ignored.
+            /// ?If ColorSpace is absent, the color space specifications in the JPEG2000 data are used.
             ///   The Decode array is also ignored unless ImageMask is true.
             /// </summary>
             [KeyInfo(KeyType.NameOrArray | KeyType.Required)]
@@ -1511,7 +1511,7 @@ namespace PdfSharp.Pdf.Advanced
             /// appropriate for the image’s color space. If ImageMask is true, the array must be either
             /// [0 1] or [1 0]; otherwise, its length must be twice the number of color components required 
             /// by ColorSpace. If the image uses the JPXDecode filter and ImageMask is false, Decode is ignored.
-            /// Default value: see “Decode Arrays”.
+            /// Default value: see “Decode Arrays?
             /// </summary>
             [KeyInfo(KeyType.Array | KeyType.Optional)]
             public const string Decode = "/Decode";
@@ -1537,7 +1537,7 @@ namespace PdfSharp.Pdf.Advanced
             /// source parameter in the graphics state determines whether the mask values are interpreted as
             /// shape or opacity. If present, this entry overrides the current soft mask in the graphics state,
             /// as well as the image’s Mask entry, if any. (However, the other transparency related graphics 
-            /// state parameters — blend mode and alpha constant — remain in effect.) If SMask is absent, the 
+            /// state parameters ?blend mode and alpha constant ?remain in effect.) If SMask is absent, the 
             /// image has no associated soft mask (although the current soft mask in the graphics state may
             /// still apply).
             /// </summary>
