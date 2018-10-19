@@ -818,9 +818,7 @@ namespace PdfSharp.Pdf
                 PdfArray array;
                 PdfReference iref;
                 PdfItem value = this[key];
-                if (value == null ||
-                    value is PdfNull ||
-                    value is PdfReference && ((PdfReference)value).Value is PdfNullObject)
+                if (value == null)
                 {
                     if (options != VCF.None)
                     {

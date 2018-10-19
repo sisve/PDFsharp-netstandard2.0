@@ -126,11 +126,7 @@ namespace PdfSharp.Drawing
         /// Adds the specified font data to the global PrivateFontCollection.
         /// Family name and style are automatically retrieved from the font.
         /// </summary>
-#if GDI
         [Obsolete("Use Add(Stream stream)")]
-#else
-        [Obsolete("Use the GDI build of PDFsharp and use Add(Stream stream)")]
-#endif
         public static void AddFont(string filename)
         {
             throw new NotImplementedException();
@@ -238,11 +234,7 @@ namespace PdfSharp.Drawing
         /// Adds the specified font data to the global PrivateFontCollection.
         /// Family name and style are automatically retrieved from the font.
         /// </summary>
-#if GDI
         [Obsolete("Use Add(Stream stream)")]
-#else
-        [Obsolete("Use the GDI build of PDFsharp and use Add(Stream stream)")]
-#endif
         public static void AddFont(Stream stream, string facename)
         {
             throw new NotImplementedException();

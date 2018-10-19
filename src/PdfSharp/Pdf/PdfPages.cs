@@ -556,10 +556,10 @@ namespace PdfSharp.Pdf
 
             Elements.SetName(Keys.Type, "/Pages");
 #if true
-            // Direct array.
+            // direct array
             Elements.SetValue(Keys.Kids, array);
 #else
-            // Indirect array.
+            // incdirect array
             Document.xrefTable.Add(array);
             Elements.SetValue(Keys.Kids, array.XRef);
 #endif

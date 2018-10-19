@@ -242,8 +242,6 @@ namespace PdfSharp.Pdf.IO
                         case '>':
                         case '(':
                         case ')':
-                        case '[':
-                        case ']':
                         case '#':
                             break;
 
