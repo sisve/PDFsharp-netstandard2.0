@@ -1,5 +1,12 @@
-# PDFsharp
-A .NET library for processing PDF
+# PdfSharpCore.PdfSharp
+**PdfSharp** is a .NET library for processing PDF.
+
+**PdfSharpCore.PdfSharp** is an unofficial .NETCore/netstandard 2.0 revision.
+
+# Nuget
+[PdfSharpCore.PdfSharp](https://www.nuget.org/packages/PdfSharpCore.PdfSharp)
+
+[PdfSharpCore.PdfSharp.Charting](https://www.nuget.org/packages/PdfSharpCore.PdfSharp.Charting)
 
 # Resources
 
