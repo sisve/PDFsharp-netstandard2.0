@@ -47,6 +47,7 @@ using WpfGlyphTypeface = System.Windows.Media.GlyphTypeface;
 #endif
 using PdfSharp.Internal;
 using PdfSharp.Fonts.OpenType;
+using System.Drawing;
 
 namespace PdfSharp.Drawing
 {
@@ -108,7 +109,10 @@ namespace PdfSharp.Drawing
 
             IntPtr hfont = gdiFont.ToHfont();
 #if true
-            IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
+            //IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
+            var dcBmp = new Bitmap(100, 100);
+            var dc = Graphics.FromImage(dcBmp);
+            IntPtr hdc = dc.GetHdc();
 #else
             NativeMethods.LOGFONT logFont = new NativeMethods.LOGFONT();
             logFont.lfHeight = 30;

@@ -6,8 +6,7 @@
     <ProjectGuid>{CFDB7D46-EA8D-47DE-B10A-9E755A1B48BA}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon></ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>PdfSharp.Charting-gdi</AssemblyName>
