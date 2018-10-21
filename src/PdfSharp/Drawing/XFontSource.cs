@@ -110,14 +110,14 @@ namespace PdfSharp.Drawing
             IntPtr hfont = gdiFont.ToHfont();
 #if true
             IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
-            //var dcBmp = new Bitmap(10, 10);
-            //var dc = Graphics.FromImage(dcBmp);
-            //IntPtr hdc = dc.GetHdc();
-            
-            //byte[] data;
-            //var stream = new MemoryStream();
-            //dcBmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-            //data = stream.ToArray();
+
+            var dcBmp = new Bitmap(10, 10);
+            var dc = Graphics.FromImage(dcBmp);
+
+            byte[] data;
+            var stream = new MemoryStream();
+            dcBmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+            data = stream.ToArray();
             ////return data;
 #else
             NativeMethods.LOGFONT logFont = new NativeMethods.LOGFONT();
