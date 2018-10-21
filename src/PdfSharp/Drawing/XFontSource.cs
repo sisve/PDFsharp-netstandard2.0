@@ -113,6 +113,16 @@ namespace PdfSharp.Drawing
             var dcBmp = new Bitmap(100, 100);
             var dc = Graphics.FromImage(dcBmp);
             IntPtr hdc = dc.GetHdc();
+
+            byte[] data;
+            var stream = new MemoryStream();
+            dcBmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+            stream.Position=0;
+            data = new byte[stream.Length];
+            stream.Read(data, 0, (int)stream.Length);
+            stream.Close();
+            return data;
+            
 #else
             NativeMethods.LOGFONT logFont = new NativeMethods.LOGFONT();
             logFont.lfHeight = 30;

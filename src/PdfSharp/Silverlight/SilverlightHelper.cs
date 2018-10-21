@@ -76,6 +76,7 @@ namespace PdfSharp.Silverlight
             ShellExecute(IntPtr.Zero, "open", fullPath, IntPtr.Zero, null, 5);
         }
 
+        [Obsolete("Should avoid using native apis!", true)]
         [DllImport("Shell32.dll")]
         static extern UInt32 ShellExecute(IntPtr hwnd, string pOperation, string pFile,
             IntPtr pParameters, string pDirectory, UInt32 nShowCmd);

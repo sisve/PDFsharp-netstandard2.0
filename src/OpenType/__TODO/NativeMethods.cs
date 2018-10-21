@@ -33,9 +33,7 @@ using System.Runtime.InteropServices;
 // ReSharper disable InconsistentNaming
 
 namespace PdfSharp.Internal
-{
-
-
+{    
     static class GdiBrainDamage 
     {
 
