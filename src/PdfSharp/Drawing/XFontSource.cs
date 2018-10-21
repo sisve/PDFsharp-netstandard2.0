@@ -112,15 +112,16 @@ namespace PdfSharp.Drawing
             //IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
             var image = new Bitmap(10, 10);
             var graphics = Graphics.FromImage(image);
-            var logFont = new NativeMethods.LOGFONT();
-            gdiFont.ToLogFont(logFont);
+            //var logFont = new NativeMethods.LOGFONT();
+            //gdiFont.ToLogFont(logFont);
             var hdc = graphics.GetHdc();
 
+            //var tf = new System.Drawing.Drawing2D.fTypeface()
 
-            byte[] data = new byte[980756];
-            var stream = new MemoryStream();
-            image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-            data = stream.ToArray();
+            //byte[] data = new byte[980756];
+            //var stream = new MemoryStream();
+            //image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+            //data = stream.ToArray();
             ////return data;
 #else
             NativeMethods.LOGFONT logFont = new NativeMethods.LOGFONT();
