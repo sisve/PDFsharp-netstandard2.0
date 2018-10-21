@@ -109,10 +109,11 @@ namespace PdfSharp.Drawing
 
             IntPtr hfont = gdiFont.ToHfont();
 #if true
-            IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
+            //IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
 
             var dcBmp = new Bitmap(10, 10);
             var dc = Graphics.FromImage(dcBmp);
+            var hdc = dc.GetHdc();
 
             byte[] data;
             var stream = new MemoryStream();
@@ -177,7 +178,7 @@ namespace PdfSharp.Drawing
             Debug.Assert(size == effectiveSize);
             // Clean up.
             NativeMethods.SelectObject(hdc, oldFont);
-            NativeMethods.ReleaseDC(IntPtr.Zero, hdc);
+            //NativeMethods.ReleaseDC(IntPtr.Zero, hdc);
 
             return bytes;
         }

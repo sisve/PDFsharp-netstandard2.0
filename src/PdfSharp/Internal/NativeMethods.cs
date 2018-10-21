@@ -107,11 +107,11 @@ namespace PdfSharp.Internal
             public LOGFONT() { }
         }
 
-        [Obsolete("Should avoid using native apis!")]
+        [Obsolete("Should avoid using native apis!", true)]
         [DllImport("user32")]
         public static extern IntPtr GetDC(IntPtr hwnd);
 
-        [Obsolete("Should avoid using native apis!")]
+        [Obsolete("Should avoid using native apis!", true)]
         [DllImport("user32")]
         public static extern IntPtr ReleaseDC(IntPtr hwnd, IntPtr hdc);
 
