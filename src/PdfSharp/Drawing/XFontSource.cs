@@ -113,7 +113,7 @@ namespace PdfSharp.Drawing
             var image = new Bitmap(10, 10);
             var graphics = Graphics.FromImage(image);
             var logFont = new NativeMethods.LOGFONT();
-            gdiFont.ToLogFont(logFont, graphics);
+            gdiFont.ToLogFont(logFont);
             var hdc = graphics.GetHdc();
 
 
