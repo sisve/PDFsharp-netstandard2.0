@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0B7940A-0BFC-476D-A204-73F7C0F88FDE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MigraDoc</RootNamespace>
+    <AssemblyName>MigraDoc.Rendering</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CORE;CORE_WITH_GDI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CORE;CORE_WITH_GDI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\MigraDoc.Rendering.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>StrongnameKey.snk</AssemblyOriginatorKeyFile>
+    <PackageId>PdfSharpCore.MigraDoc.Rendering</PackageId>
+    <Version>1.50.0-beta5-2</Version>
+    <Authors>PdfSharp-Team;PdfSharpCore</Authors>
+    <Product>PdfSharpCore</Product>
+    <Description>An unoffical .NETCore/netstandard 2.0 library to create pdf on the fly, based on PdfSharp-MigraDoc.</Description>
+    <PackageProjectUrl>https://github.com/PdfSharpCore/MigraDoc</PackageProjectUrl>
+    <PackageReleaseNotes>PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24), target framework netstandard 2.0</PackageReleaseNotes>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Rendering.Forms\**" />
+    <Compile Remove="Rendering.Windows\**" />
+    <EmbeddedResource Remove="Rendering.Forms\**" />
+    <EmbeddedResource Remove="Rendering.Windows\**" />
+    <None Remove="Rendering.Forms\**" />
+    <None Remove="Rendering.Windows\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Rendering.Printing\MigraDocPrintDocument.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Rendering.Windows\enums\Zoom.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Rendering.Resources\Messages.de.restext" />
+    <EmbeddedResource Include="Rendering.Resources\Messages.restext" />
+    <None Include="StrongnameKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rendering.Printing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MigraDoc.DocumentObjectModel\MigraDoc.DocumentObjectModel.csproj" />
+    <ProjectReference Include="..\PdfSharp.Charting\PdfSharp.Charting.csproj" />
+  </ItemGroup>
+</Project>
