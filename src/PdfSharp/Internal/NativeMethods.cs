@@ -107,16 +107,16 @@ namespace PdfSharp.Internal
             public LOGFONT() { }
         }
 
-        [Obsolete("Should avoid using native apis!", true)]
-        [DllImport("user32.dll")]
+        [Obsolete("Should avoid using native apis!")]
+        [DllImport("user32")]
         public static extern IntPtr GetDC(IntPtr hwnd);
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("user32.dll")]
+        [DllImport("user32")]
         public static extern IntPtr ReleaseDC(IntPtr hwnd, IntPtr hdc);
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll", SetLastError = true)]
+        [DllImport("gdi32", SetLastError = true)]
         public static extern int GetFontData(
             IntPtr hdc, // handle to DC
             uint dwTable, // metric table name
@@ -127,7 +127,7 @@ namespace PdfSharp.Internal
 
         [Obsolete("Should avoid using native apis!")]
         //  CreateDCA(__in_opt LPCSTR pwszDriver, __in_opt LPCSTR pwszDevice, __in_opt LPCSTR pszPort, __in_opt CONST DEVMODEA* pdm);
-        [DllImport("gdi32.dll", SetLastError = true)]
+        [DllImport("gdi32", SetLastError = true)]
         public static extern IntPtr CreateDC(
             string driver,
             string device,
@@ -136,19 +136,19 @@ namespace PdfSharp.Internal
             );
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll", SetLastError = true)]
+        [DllImport("gdi32", SetLastError = true)]
         public static extern IntPtr CreateCompatibleDC(IntPtr hdc);
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll", EntryPoint = "CreateFontIndirectW")]
+        [DllImport("gdi32", EntryPoint = "CreateFontIndirectW")]
         public static extern IntPtr CreateFontIndirect(LOGFONT lpLogFont);
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll")]
+        [DllImport("gdi32")]
         public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll")]
+        [DllImport("gdi32")]
         public static extern bool DeleteObject(IntPtr hgdiobj);
 
         public const int HORZSIZE = 4; // Horizontal size in millimeters
@@ -159,7 +159,7 @@ namespace PdfSharp.Internal
         public const int LOGPIXELSY = 90; // Logical pixels/inch in Y
 
         [Obsolete("Should avoid using native apis!")]
-        [DllImport("gdi32.dll")]
+        [DllImport("gdi32")]
         public static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
     }
 #endif
