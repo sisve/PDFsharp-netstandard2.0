@@ -74,27 +74,31 @@ namespace PdfSharp.Drawing
         {
             var searchingPaths = new List<string>();
             searchingPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            searchingPaths.Add(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+            try
+            {
+                searchingPaths.Add(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+            }
+            catch
+            {
+                searchingPaths.Add("/user/share/fonts/truetype");
+            }
             foreach (var path in searchingPaths)
             {
                 // TODO: *.ttc not supported yet!
-                var fileNames = Directory.GetFiles(path, "*.ttf", SearchOption.TopDirectoryOnly);
+                var fileNames = Directory.GetFiles(path, "*.ttf", SearchOption.AllDirectories);
                 foreach (var fileName in fileNames)
                 {
-                    if (File.Exists(fileName))
+                    try
                     {
-                        try
+                        var fontCollection = new System.Drawing.Text.PrivateFontCollection();
+                        fontCollection.AddFontFile(fileName);
+                        var fontName = fontCollection.Families[0].Name;
+                        if (!FontDictionary.ContainsKey(fontName))
                         {
-                            var fontCollection = new System.Drawing.Text.PrivateFontCollection();
-                            fontCollection.AddFontFile(fileName);
-                            var fontName = fontCollection.Families[0].Name;
-                            if (!FontDictionary.ContainsKey(fontName))
-                            {
-                                FontDictionary.Add(fontName, fileName);
-                            }
+                            FontDictionary.Add(fontName, fileName);
                         }
-                        catch { }
                     }
+                    catch { }
                 }
             }
         }
