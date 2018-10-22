@@ -8,7 +8,7 @@
 
 **PdfSharpCore** is a fork of https://github.com/empira.
 
-**PdfSharpCore** adapts for dotnetcore (current netstandard 2.0, dotnet-sdk-2.1.x, dotnet-runtime-2.1.x).
+**PdfSharpCore** builds on dotnetcore (current netstandard 2.0, dotnet-sdk-2.1.x, dotnet-runtime-2.1.x).
 
 **PdfSharpCore** works on Windows and **Linux**!
 
