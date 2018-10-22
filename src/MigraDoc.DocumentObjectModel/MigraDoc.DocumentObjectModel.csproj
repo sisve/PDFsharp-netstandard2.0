@@ -36,11 +36,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>StrongnameKey.snk</AssemblyOriginatorKeyFile>
-    <Version>1.50.0-beta5-2</Version>
+    <Version>1.50.0-beta5-3</Version>
     <PackageId>PdfSharpCore.MigraDoc.DocumentObjectModel</PackageId>
     <Authors>PdfSharp-Team;PdfSharpCore</Authors>
     <Product>PdfSharpCore</Product>
-    <PackageProjectUrl>https://github.com/PdfSharpCore/MigraDoc</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/myvas/PdfSharpCore</PackageProjectUrl>
     <Description>An unoffical .NETCore/netstandard 2.0 library to create pdf on the fly, based on PdfSharp-MigraDoc.</Description>
   </PropertyGroup>
   <ItemGroup>
