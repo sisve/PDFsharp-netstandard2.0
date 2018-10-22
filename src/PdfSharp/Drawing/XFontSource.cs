@@ -47,6 +47,8 @@ using PdfSharp.Internal;
 using PdfSharp.Fonts.OpenType;
 using System.Drawing;
 using System.Reflection;
+using System.IO;
+using System.Collections.Generic;
 
 namespace PdfSharp.Drawing
 {
@@ -116,15 +118,33 @@ namespace PdfSharp.Drawing
             {
                 var assembly = Assembly.GetAssembly(typeof(XFontSource));
                 var fontName = gdiFont.Name;
-                var resourceName = $"PdfSharp.Assets.{fontName.ToLower()}.ttf";
-                var resourceNameDefault = $"PdfSharp.Assets.arial.ttf";
-                var fontStream = assembly.GetManifestResourceStream(resourceName);
+                // 1.search embedded ttf files...
+                var fontStream = assembly.GetManifestResourceStream($"PdfSharp.Assets.{fontName.ToLower()}.ttf");
                 if (fontStream == null)
                 {
-                    fontStream = assembly.GetManifestResourceStream(resourceNameDefault);
+                    // 2.search ttf file in (1)local path, (2)system fonts folder
+                    var searchingPaths = new List<string>();
+                    searchingPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+                    searchingPaths.Add(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+                    foreach (var path in searchingPaths)
+                    {
+                        var fileName = Path.Combine(path, $"{fontName}.ttf");
+                        bool existInExecutingPath = File.Exists(fileName);
+                        if (existInExecutingPath)
+                        {
+                            fontStream = File.OpenRead(fileName);
+                            if (fontStream != null) break;
+                        }
+                    }
                 }
-                var data = Marshal.AllocCoTaskMem((int)fontStream.Length);
 
+                // 3.default
+                var fontNameDefault = "Arial";
+                if (fontStream == null)
+                {
+                    fontStream = assembly.GetManifestResourceStream($"PdfSharp.Assets.{fontNameDefault.ToLower()}.ttf");
+                }
+                // to output
                 var fontData = new byte[fontStream.Length];
                 fontStream.Read(fontData, 0, (int)fontStream.Length);
                 return fontData;
