@@ -48,6 +48,8 @@ using WpfGlyphTypeface = System.Windows.Media.GlyphTypeface;
 using PdfSharp.Internal;
 using PdfSharp.Fonts.OpenType;
 using System.Drawing;
+using System.Reflection;
+using PdfSharp.Properties;
 
 namespace PdfSharp.Drawing
 {
@@ -116,6 +118,17 @@ namespace PdfSharp.Drawing
             //gdiFont.ToLogFont(logFont);
             var hdc = graphics.GetHdc();
 
+            {
+                //var resource = "arial";
+                //var assembly = Assembly.GetAssembly(typeof(XFontSource));
+                //var fontStream = assembly.GetManifestResourceStream(resource);
+                //var data = Marshal.AllocCoTaskMem((int)fontStream.Length);
+
+                //var fontData = new byte[fontStream.Length];
+                //fontStream.Read(fontData, 0, (int)fontStream.Length);
+                return Resources.arial;
+
+            }
             //var tf = new System.Drawing.Drawing2D.fTypeface()
 
             //byte[] data = new byte[980756];
