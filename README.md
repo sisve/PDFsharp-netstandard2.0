@@ -20,10 +20,13 @@ SourceForge Versions: https://sourceforge.net/projects/pdfsharp/files/pdfsharp/
 
 
 ## Nuget
-[PdfSharpCore.PdfSharp](https://www.nuget.org/packages/PdfSharpCore.PdfSharp)
-[PdfSharpCore.PdfSharp.Rendering](https://www.nuget.org/packages/PdfSharpCore.PdfSharp.Rendering)
-[PdfSharpCore.MigraDoc](https://www.nuget.org/packages/PdfSharpCore.MigraDoc)
-[PdfSharpCore.MigraDoc.Rendering](https://www.nuget.org/packages/PdfSharpCore.MigraDoc.Rendering)
+- [PdfSharpCore.PdfSharp](https://www.nuget.org/packages/PdfSharpCore.PdfSharp)
+
+- [PdfSharpCore.PdfSharp.Rendering](https://www.nuget.org/packages/PdfSharpCore.PdfSharp.Rendering)
+
+- [PdfSharpCore.MigraDoc](https://www.nuget.org/packages/PdfSharpCore.MigraDoc)
+
+- [PdfSharpCore.MigraDoc.Rendering](https://www.nuget.org/packages/PdfSharpCore.MigraDoc.Rendering)
 
 
 ## PDFsharp and MigraDoc
