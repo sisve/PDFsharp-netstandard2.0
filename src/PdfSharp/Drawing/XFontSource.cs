@@ -126,7 +126,7 @@ namespace PdfSharp.Drawing
 
                 //var fontData = new byte[fontStream.Length];
                 //fontStream.Read(fontData, 0, (int)fontStream.Length);
-                return Resources.arial;
+                return Resources.GetFont("arial");
 
             }
             //var tf = new System.Drawing.Drawing2D.fTypeface()
