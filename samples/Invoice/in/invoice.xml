@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <invoice>
   <number>42</number>
   <date>2005-12-06</date>
@@ -160,6 +160,19 @@
       <quantity>1</quantity>
       <discount></discount>
       <price>17.90</price>
+      <percentageTax></percentageTax>
+      <taxable></taxable>
+      <extendedPrice></extendedPrice>
+      <extendedPricePlusTax></extendedPricePlusTax>
+    </item>
+    <item>
+      <itemNumber>32</itemNumber>
+      <title>The 中文测试 Guide</title>
+      <author>Brian 中文姓名 Greene</author>
+      <isbn>0300058581</isbn>
+      <quantity>2</quantity>
+      <discount></discount>
+      <price>28.98</price>
       <percentageTax></percentageTax>
       <taxable></taxable>
       <extendedPrice></extendedPrice>
