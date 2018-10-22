@@ -30,12 +30,10 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Runtime.InteropServices;
 using PdfSharp.Fonts;
 #if CORE || GDI
 using GdiFont = System.Drawing.Font;
-using GdiFontStyle = System.Drawing.FontStyle;
 #endif
 #if WPF
 using System.Windows;
@@ -49,7 +47,6 @@ using PdfSharp.Internal;
 using PdfSharp.Fonts.OpenType;
 using System.Drawing;
 using System.Reflection;
-using PdfSharp.Properties;
 
 namespace PdfSharp.Drawing
 {
@@ -114,8 +111,6 @@ namespace PdfSharp.Drawing
             //IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
             var image = new Bitmap(10, 10);
             var graphics = Graphics.FromImage(image);
-            //var logFont = new NativeMethods.LOGFONT();
-            //gdiFont.ToLogFont(logFont);
             var hdc = graphics.GetHdc();
 
             {
