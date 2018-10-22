@@ -10,6 +10,8 @@
 
 **PdfSharpCore** adapts for dotnetcore (current netstandard 2.0, dotnet-sdk-2.1.x, dotnet-runtime-2.1.x).
 
+**PdfSharpCore** works on Windows and **Linux**!
+
 
 ## Update Notes
 This repository: **PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24)**.
