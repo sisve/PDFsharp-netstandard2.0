@@ -74,9 +74,9 @@
     <None Include="StrongnameKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\arial.ttf">
+    <EmbeddedResource Include="Assets\arial.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="SharpZipLib\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
