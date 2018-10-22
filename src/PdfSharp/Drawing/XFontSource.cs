@@ -119,15 +119,20 @@ namespace PdfSharp.Drawing
             var hdc = graphics.GetHdc();
 
             {
-                var resource = "PdfSharp.Assets.arial.ttf";
                 var assembly = Assembly.GetAssembly(typeof(XFontSource));
-                var fontStream = assembly.GetManifestResourceStream(resource);
+                var fontName = gdiFont.Name;
+                var resourceName = $"PdfSharp.Assets.{fontName.ToLower()}.ttf";
+                var resourceNameDefault = $"PdfSharp.Assets.arial.ttf";
+                var fontStream = assembly.GetManifestResourceStream(resourceName);
+                if (fontStream == null)
+                {
+                    fontStream = assembly.GetManifestResourceStream(resourceNameDefault);
+                }
                 var data = Marshal.AllocCoTaskMem((int)fontStream.Length);
 
                 var fontData = new byte[fontStream.Length];
                 fontStream.Read(fontData, 0, (int)fontStream.Length);
-                return fontData;//Resources.GetFont("arial");
-
+                return fontData;
             }
             //var tf = new System.Drawing.Drawing2D.fTypeface()
 
