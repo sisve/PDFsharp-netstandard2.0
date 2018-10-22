@@ -1,4 +1,7 @@
-# PdfSharpCore/PdfSharp
+# PdfSharpCore
+
+## 1.50.0-beta5-3 (2018-10-22)
+- PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24), target framework netstandard 2.0 (It works on Linux and Windows now!)
 
 ## 1.50.0-beta5-2 (2018-10-19)
 - PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24), target framework netstandard 2.0
