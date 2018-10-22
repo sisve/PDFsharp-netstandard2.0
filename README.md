@@ -1,15 +1,10 @@
 # PdfSharpCore
 
-**PdfSharp** is a .NET library for processing PDF.
+**PdfSharpCore** is an unofficial .NETCore/netstandard 2.0 revision of PdfSharp-MigraDoc, which is a .NET library for processing PDF.
 
-**PdfSharpCore** is an unofficial .NETCore/netstandard 2.0 revision of PdfSharp-MigraDoc.
+**PdfSharpCore** works on Windows and **Linux**!
 
-**PdfSharpCore** aims to keeping updating to https://sourceforge.net/projects/pdfsharp/.
-
-**PdfSharpCore** is a fork of https://github.com/empira.
-
-**PdfSharpCore** adapts for dotnetcore (current netstandard 2.0, dotnet-sdk-2.1.x, dotnet-runtime-2.1.x).
-
+**PdfSharpCore** is keeping updating from https://sourceforge.net/projects/pdfsharp/.
 
 ## Update Notes
 This repository: **PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24)**.
@@ -20,7 +15,13 @@ SourceForge Versions: https://sourceforge.net/projects/pdfsharp/files/pdfsharp/
 
 
 ## Nuget
-[PdfSharpCore](https://www.nuget.org/packages/PdfSharpCore)
+- [PdfSharpCore.PdfSharp](https://www.nuget.org/packages/PdfSharpCore.PdfSharp)
+
+- [PdfSharpCore.PdfSharp.Rendering](https://www.nuget.org/packages/PdfSharpCore.PdfSharp.Rendering)
+
+- [PdfSharpCore.MigraDoc](https://www.nuget.org/packages/PdfSharpCore.MigraDoc)
+
+- [PdfSharpCore.MigraDoc.Rendering](https://www.nuget.org/packages/PdfSharpCore.MigraDoc.Rendering)
 
 
 ## PDFsharp and MigraDoc
@@ -49,6 +50,15 @@ MigraDoc references PDFsharp as a submodule.
 
 Democrates features of PdfSharpCore components of PdfSharp and MigraDoc.
 
+Note: 
+You should import nuget package [System.Text.Encoding.CodePages](https://www.nuget.org/packages/System.Text.Encoding.CodePages/), and add lines in Program.cs:
+```csharp
+  static Program()
+  {
+      Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+  }
+```
+
 ### 0-ProtectedPdf
 Use **PdfSharp.Charting** to create a password protected pdf.
 
@@ -68,7 +78,6 @@ Use **MigraDoc.Rendering** to create a invoice letter with header, footer, title
 
 ### 4-PdfSharpDemo
 Use **MigraDoc.Rendering** to create a pdf that combines another pdf and appends some new content.
-
 
 
 ## Resources
