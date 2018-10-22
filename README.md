@@ -1,17 +1,10 @@
 # PdfSharpCore
 
-**PdfSharp** is a .NET library for processing PDF.
-
-**PdfSharpCore** is an unofficial .NETCore/netstandard 2.0 revision of PdfSharp-MigraDoc.
-
-**PdfSharpCore** aims to keeping updating to https://sourceforge.net/projects/pdfsharp/.
-
-**PdfSharpCore** is a fork of https://github.com/empira.
-
-**PdfSharpCore** builds on dotnetcore (current netstandard 2.0, dotnet-sdk-2.1.x, dotnet-runtime-2.1.x).
+**PdfSharpCore** is an unofficial .NETCore/netstandard 2.0 revision of PdfSharp-MigraDoc, which is a .NET library for processing PDF.
 
 **PdfSharpCore** works on Windows and **Linux**!
 
+**PdfSharpCore** is keeping updating from https://sourceforge.net/projects/pdfsharp/.
 
 ## Update Notes
 This repository: **PDFsharp-MigraDocFoundation-1_50-beta5 (2017-12-24)**.
@@ -76,7 +69,6 @@ Use **MigraDoc.Rendering** to create a invoice letter with header, footer, title
 
 ### 4-PdfSharpDemo
 Use **MigraDoc.Rendering** to create a pdf that combines another pdf and appends some new content.
-
 
 
 ## Resources
