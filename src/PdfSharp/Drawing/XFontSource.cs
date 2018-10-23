@@ -69,23 +69,45 @@ namespace PdfSharp.Drawing
         // Signature of a true type collection font.
         const uint ttcf = 0x66637474;
 
-        internal static Dictionary<string, string> FontDictionary = new Dictionary<string, string>();
+        /// <summary>
+        /// (fontName, fileName)
+        /// </summary>
+        internal static Dictionary<string, string> FontFilePaths = new Dictionary<string, string>();
         static XFontSource()
         {
             var searchingPaths = new List<string>();
-            searchingPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            try
+            // Application
+            var executingPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            searchingPaths.Add(executingPath);
+            // Windows
+            var systemFontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+            if (!string.IsNullOrWhiteSpace(systemFontsPath))
             {
-                searchingPaths.Add(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+                searchingPaths.Add(systemFontsPath);
             }
-            catch
+            else
             {
-                searchingPaths.Add("/user/share/fonts/truetype");
+                // Debian
+                searchingPaths.Add("/usr/share/fonts/truetype");
+                //searchingPaths.Add("/usr/share/X11/fonts");
+                //searchingPaths.Add("/usr/X11R6/lib/X11/fonts");
+                //searchingPaths.Add("~/.fonts");
             }
-            foreach (var path in searchingPaths)
+
+            foreach (var searchingPath in searchingPaths)
             {
                 // TODO: *.ttc not supported yet!
-                var fileNames = Directory.GetFiles(path, "*.ttf", SearchOption.AllDirectories);
+                var fileNames = new List<string>();
+                try
+                {
+                    fileNames = Directory.GetFiles(searchingPath, "*.ttf", SearchOption.AllDirectories).ToList();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    continue;
+                }
+
                 foreach (var fileName in fileNames)
                 {
                     try
@@ -93,12 +115,16 @@ namespace PdfSharp.Drawing
                         var fontCollection = new System.Drawing.Text.PrivateFontCollection();
                         fontCollection.AddFontFile(fileName);
                         var fontName = fontCollection.Families[0].Name;
-                        if (!FontDictionary.ContainsKey(fontName))
+                        if (!FontFilePaths.ContainsKey(fontName))
                         {
-                            FontDictionary.Add(fontName, fileName);
+                            FontFilePaths.Add(fontName, fileName);
+                            Debug.WriteLine($"Add font {fontName}: {fileName}");
                         }
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
                 }
             }
         }
@@ -155,9 +181,9 @@ namespace PdfSharp.Drawing
                 var fontName = gdiFont.Name;
                 Stream fontStream = null;
                 {
-                    if (FontDictionary.ContainsKey(fontName))
+                    if (FontFilePaths.ContainsKey(fontName))
                     {
-                        var fileName = FontDictionary[fontName];
+                        var fileName = FontFilePaths[fontName];
                         fontStream = File.OpenRead(fileName);
                         Debug.WriteLine($"{fileName} retrieved.");
                     }
@@ -170,9 +196,8 @@ namespace PdfSharp.Drawing
                 // 3.default
                 if (fontStream == null)
                 {
-                    var fontNameDefault = "Arial";
-                    fontStream = assembly.GetManifestResourceStream($"PdfSharp.Assets.{fontNameDefault.ToLower()}.ttf");
-                    Debug.WriteLine($"{fontName} not found, default to {fontNameDefault}");
+                    fontStream = assembly.GetManifestResourceStream($"PdfSharp.Assets.stsong.ttf");
+                    Debug.WriteLine($"{fontName} not found, replaced by default stsong.ttf");
                 }
 
                 // to output
