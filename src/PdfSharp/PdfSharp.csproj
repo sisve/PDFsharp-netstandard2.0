@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>$(DefineConstants);CORE;CORE_WITH_GDI</DefineConstants>
     <AssemblyName>PdfSharp.netstandard2.0</AssemblyName>
@@ -14,7 +14,7 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <RootNamespace>PdfSharp</RootNamespace>
-    <Authors>PdfSharp.netstandard</Authors>
+    <Authors>PDFSharp Team</Authors>
     <PackageProjectUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
