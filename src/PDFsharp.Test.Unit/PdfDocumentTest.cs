@@ -6,31 +6,23 @@ using Xunit;
 
 namespace PdfSharp.Pdf.Test
 {
-    public class PdfDocumentTest
+    public class PdfDocumentTest : IClassFixture<PdfDocumentFixture>
     {
-        private static PdfDocument CreatePdf(Stream stream)
-        {
-            var pdf = new PdfDocument();
-            pdf.AddPage();
-            pdf.Save(stream);
-            return pdf;
-        }
+        private readonly PdfDocumentFixture fixture;
 
-        private static Stream CreateInMemoryPdf()
+        public PdfDocumentTest(PdfDocumentFixture fixture)
         {
-            var pdfStream = new MemoryStream();
-            CreatePdf(pdfStream);
-            pdfStream.Position = 0;
-            return pdfStream;
+            this.fixture = fixture;
         }
 
         [Fact]
         public void TestImportMode()
         {
-            using (var pdfStream = CreateInMemoryPdf())
+            var pageCount = 1;
+            using (var pdfStream = fixture.CreateInMemoryPdf(pageCount))
             {
                 var pdf = PdfReader.Open(pdfStream, PdfDocumentOpenMode.Import);
-                pdf.PageCount.Should().Be(1);
+                pdf.PageCount.Should().Be(pageCount);
                 pdf.Pages[0].Should().NotBeNull();
 
                 pdf.CanSave(out string _).Should().BeFalse();
@@ -42,12 +34,13 @@ namespace PdfSharp.Pdf.Test
         [Fact]
         public void TestModifyMode()
         {
-            using (var pdfStream = CreateInMemoryPdf())
+            var pageCount = 1;
+            using (var pdfStream = fixture.CreateInMemoryPdf(pageCount))
             {
                 var pdf = PdfReader.Open(pdfStream, PdfDocumentOpenMode.Modify);
                 pdf.AddPage().Should().NotBeNull();
 
-                pdf.PageCount.Should().Be(2);
+                pdf.PageCount.Should().BeGreaterThan(pageCount);
                 pdf.Pages[1].Should().NotBeNull();
             }
         }
