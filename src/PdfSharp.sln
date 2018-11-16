@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{64B233FB-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfSharp.Test.Integration", "PdfSharp.Test.Integration\PdfSharp.Test.Integration.csproj", "{A3EA21FF-739D-4370-AC1F-C6C0120B5ADE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdfsharp.Test.Unit", "PdfSharp.Test.Unit\Pdfsharp.Test.Unit.csproj", "{C76E4217-75B7-435E-B047-D1A6F18E3A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfSharp.Test.Unit", "PdfSharp.Test.Unit\PdfSharp.Test.Unit.csproj", "{C76E4217-75B7-435E-B047-D1A6F18E3A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
