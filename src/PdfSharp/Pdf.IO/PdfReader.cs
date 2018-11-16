@@ -76,8 +76,7 @@ namespace PdfSharp.Pdf.IO
             FileStream stream = null;
             try
             {
-                int pageNumber;
-                string realPath = Drawing.XPdfForm.ExtractPageNumber(path, out pageNumber);
+                string realPath = Drawing.XPdfForm.ExtractPageNumber(path, out int pageNumber);
                 if (File.Exists(realPath)) // prevent unwanted exceptions during debugging
                 {
                     stream = new FileStream(realPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -368,8 +367,7 @@ namespace PdfSharp.Pdf.IO
                 for (int idx = 0; idx < count2; idx++)
                 {
                     PdfReference iref = irefs2[idx];
-                    PdfCrossReferenceStream xrefStream = iref.Value as PdfCrossReferenceStream;
-                    if (xrefStream != null)
+                    if (iref.Value is PdfCrossReferenceStream xrefStream)
                     {
                         for (int idx2 = 0; idx2 < xrefStream.Entries.Count; idx2++)
                         {
@@ -395,8 +393,7 @@ namespace PdfSharp.Pdf.IO
                 for (int idx = 0; idx < count2; idx++)
                 {
                     PdfReference iref = irefs2[idx];
-                    PdfCrossReferenceStream xrefStream = iref.Value as PdfCrossReferenceStream;
-                    if (xrefStream != null)
+                    if (iref.Value is PdfCrossReferenceStream xrefStream)
                     {
                         for (int idx2 = 0; idx2 < xrefStream.Entries.Count; idx2++)
                         {
