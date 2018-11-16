@@ -180,15 +180,7 @@ namespace PdfSharp.Pdf.IO
         /// <summary>
         /// Opens an existing PDF document.
         /// </summary>
-        public static PdfDocument Open(string path, PdfDocumentOpenMode openmode)
-        {
-            return Open(path, null, openmode, null);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(string path, PdfDocumentOpenMode openmode, PdfPasswordProvider provider)
+        public static PdfDocument Open(string path, PdfDocumentOpenMode openmode, PdfPasswordProvider provider = null)
         {
             return Open(path, null, openmode, provider);
         }
@@ -196,15 +188,11 @@ namespace PdfSharp.Pdf.IO
         /// <summary>
         /// Opens an existing PDF document.
         /// </summary>
-        public static PdfDocument Open(string path, string password, PdfDocumentOpenMode openmode)
-        {
-            return Open(path, password, openmode, null);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(string path, string password, PdfDocumentOpenMode openmode, PdfPasswordProvider provider)
+        public static PdfDocument Open(
+            string path,
+            string password = null,
+            PdfDocumentOpenMode openmode = PdfDocumentOpenMode.Modify,
+            PdfPasswordProvider provider = null)
         {
 #if !NETFX_CORE
             PdfDocument document;
@@ -236,46 +224,19 @@ namespace PdfSharp.Pdf.IO
         /// <summary>
         /// Opens an existing PDF document.
         /// </summary>
-        public static PdfDocument Open(string path)
-        {
-            return Open(path, null, PdfDocumentOpenMode.Modify, null);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(string path, string password)
-        {
-            return Open(path, password, PdfDocumentOpenMode.Modify, null);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(Stream stream, PdfDocumentOpenMode openmode)
-        {
-            return Open(stream, null, openmode);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(Stream stream, PdfDocumentOpenMode openmode, PdfPasswordProvider passwordProvider)
+        public static PdfDocument Open(Stream stream, PdfDocumentOpenMode openmode, PdfPasswordProvider passwordProvider = null)
         {
             return Open(stream, null, openmode, passwordProvider);
         }
+        
         /// <summary>
         /// Opens an existing PDF document.
         /// </summary>
-        public static PdfDocument Open(Stream stream, string password, PdfDocumentOpenMode openmode)
-        {
-            return Open(stream, password, openmode, null);
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(Stream stream, string password, PdfDocumentOpenMode openmode, PdfPasswordProvider passwordProvider)
+        public static PdfDocument Open(
+            Stream stream,
+            string password = null,
+            PdfDocumentOpenMode openmode = PdfDocumentOpenMode.Modify,
+            PdfPasswordProvider passwordProvider = null)
         {
             PdfDocument document;
             try
@@ -503,14 +464,6 @@ namespace PdfSharp.Pdf.IO
                 throw;
             }
             return document;
-        }
-
-        /// <summary>
-        /// Opens an existing PDF document.
-        /// </summary>
-        public static PdfDocument Open(Stream stream)
-        {
-            return Open(stream, PdfDocumentOpenMode.Modify);
         }
     }
 }
