@@ -35,6 +35,7 @@ using PdfSharp.Internal;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.Security;
 using PdfSharp.Pdf.Internal;
+using System.Threading.Tasks;
 
 namespace PdfSharp.Pdf.IO
 {
@@ -269,7 +270,6 @@ namespace PdfSharp.Pdf.IO
                 PdfReference xrefEncrypt = document._trailer.Elements[PdfTrailer.Keys.Encrypt] as PdfReference;
                 if (xrefEncrypt != null)
                 {
-                    //xrefEncrypt.Value = parser.ReadObject(null, xrefEncrypt.ObjectID, false);
                     PdfObject encrypt = parser.ReadObject(null, xrefEncrypt.ObjectID, false, false);
 
                     encrypt.Reference = xrefEncrypt;
@@ -389,6 +389,253 @@ namespace PdfSharp.Pdf.IO
                         {
                             Debug.Assert(document._irefTable.Contains(iref.ObjectID));
                             PdfObject pdfObject = parser.ReadObject(null, iref.ObjectID, false, false);
+                            Debug.Assert(pdfObject.Reference == iref);
+                            pdfObject.Reference = iref;
+                            Debug.Assert(pdfObject.Reference.Value != null, "Something went wrong.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                            // 4STLA rethrow exception to notify caller.
+                            throw;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Assert(document._irefTable.Contains(iref.ObjectID));
+                        //iref.GetType();
+                    }
+                    // Set maximum object number.
+                    document._irefTable._maxObjectNumber = Math.Max(document._irefTable._maxObjectNumber,
+                        iref.ObjectNumber);
+                }
+
+                // Encrypt all objects.
+                if (xrefEncrypt != null)
+                {
+                    document.SecurityHandler.EncryptDocument();
+                }
+
+                // Fix references of trailer values and then objects and irefs are consistent.
+                document._trailer.Finish();
+
+#if DEBUG_
+    // Some tests...
+                PdfReference[] reachables = document.xrefTable.TransitiveClosure(document.trailer);
+                reachables.GetType();
+                reachables = document.xrefTable.AllXRefs;
+                document.xrefTable.CheckConsistence();
+#endif
+
+                if (openmode == PdfDocumentOpenMode.Modify)
+                {
+                    // Create new or change existing document IDs.
+                    if (document.Internals.SecondDocumentID == "")
+                        document._trailer.CreateNewDocumentIDs();
+                    else
+                    {
+                        byte[] agTemp = Guid.NewGuid().ToByteArray();
+                        document.Internals.SecondDocumentID = PdfEncoders.RawEncoding.GetString(agTemp, 0, agTemp.Length);
+                    }
+
+                    // Change modification date
+                    document.Info.ModificationDate = DateTime.Now;
+
+                    // Remove all unreachable objects
+                    int removed = document._irefTable.Compact();
+                    if (removed != 0)
+                        Debug.WriteLine("Number of deleted unreachable objects: " + removed);
+
+                    // Force flattening of page tree
+                    PdfPages pages = document.Pages;
+                    Debug.Assert(pages != null);
+
+                    //bool b = document.irefTable.Contains(new PdfObjectID(1108));
+                    //b.GetType();
+
+                    document._irefTable.CheckConsistence();
+                    document._irefTable.Renumber();
+                    document._irefTable.CheckConsistence();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            return document;
+        }
+
+        /// <summary>
+        /// Opens an existing PDF document asynchronously.
+        /// </summary>
+        public static async Task<PdfDocument> OpenAsync(
+            Stream stream,
+            PdfDocumentOpenMode openmode = PdfDocumentOpenMode.Modify,
+            PdfPasswordProvider passwordProvider = null)
+        {
+            return Open(stream, null, openmode, passwordProvider);
+        }
+
+        /// <summary>
+        /// Opens an existing PDF document asynchronously.
+        /// </summary>
+        public static async Task<PdfDocument> OpenAsync(
+            Stream stream,
+            string password = null,
+            PdfDocumentOpenMode openmode = PdfDocumentOpenMode.Modify,
+            PdfPasswordProvider passwordProvider = null)
+        {
+            PdfDocument document;
+            try
+            {
+                Lexer lexer = new Lexer(stream);
+                document = new PdfDocument(lexer);
+                document._state |= DocumentState.Imported;
+                document._openMode = openmode;
+                document._fileSize = stream.Length;
+
+                // Get file version.
+                byte[] header = new byte[1024];
+                stream.Position = 0;
+                stream.Read(header, 0, 1024);
+                document._version = GetPdfFileVersion(header);
+                if (document._version == 0)
+                    throw new InvalidOperationException(PSSR.InvalidPdf);
+
+                document._irefTable.IsUnderConstruction = true;
+                Parser parser = new Parser(document);
+                // Read all trailers or cross-reference streams, but no objects.
+                document._trailer = await parser.ReadTrailerAsync();
+                if (document._trailer == null)
+                    ParserDiagnostics.ThrowParserException("Invalid PDF file: no trailer found."); // TODO L10N using PSSR.
+
+                Debug.Assert(document._irefTable.IsUnderConstruction);
+                document._irefTable.IsUnderConstruction = false;
+
+                // Is document encrypted?
+                PdfReference xrefEncrypt = document._trailer.Elements[PdfTrailer.Keys.Encrypt] as PdfReference;
+                if (xrefEncrypt != null)
+                {
+                    PdfObject encrypt = await parser.ReadObjectAsync(null, xrefEncrypt.ObjectID, false, false);
+
+                    encrypt.Reference = xrefEncrypt;
+                    xrefEncrypt.Value = encrypt;
+                    PdfStandardSecurityHandler securityHandler = document.SecurityHandler;
+                    TryAgain:
+                    PasswordValidity validity = securityHandler.ValidatePassword(password);
+                    if (validity == PasswordValidity.Invalid)
+                    {
+                        if (passwordProvider != null)
+                        {
+                            PdfPasswordProviderArgs args = new PdfPasswordProviderArgs();
+                            passwordProvider(args);
+                            if (args.Abort)
+                                return null;
+                            password = args.Password;
+                            goto TryAgain;
+                        }
+                        else
+                        {
+                            if (password == null)
+                                throw new PdfReaderException(PSSR.PasswordRequired);
+                            else
+                                throw new PdfReaderException(PSSR.InvalidPassword);
+                        }
+                    }
+                    else if (validity == PasswordValidity.UserPassword && openmode == PdfDocumentOpenMode.Modify)
+                    {
+                        if (passwordProvider != null)
+                        {
+                            PdfPasswordProviderArgs args = new PdfPasswordProviderArgs();
+                            passwordProvider(args);
+                            if (args.Abort)
+                                return null;
+                            password = args.Password;
+                            goto TryAgain;
+                        }
+                        else
+                            throw new PdfReaderException(PSSR.OwnerPasswordRequired);
+                    }
+                }
+                else
+                {
+                    if (password != null)
+                    {
+                        // Password specified but document is not encrypted.
+                        // ignore
+                    }
+                }
+
+                PdfReference[] irefs2 = document._irefTable.AllReferences;
+                int count2 = irefs2.Length;
+
+                // 3rd: Create iRefs for all compressed objects.
+                Dictionary<int, object> objectStreams = new Dictionary<int, object>();
+                for (int idx = 0; idx < count2; idx++)
+                {
+                    PdfReference iref = irefs2[idx];
+                    if (iref.Value is PdfCrossReferenceStream xrefStream)
+                    {
+                        for (int idx2 = 0; idx2 < xrefStream.Entries.Count; idx2++)
+                        {
+                            PdfCrossReferenceStream.CrossReferenceStreamEntry item = xrefStream.Entries[idx2];
+                            // Is type xref to compressed object?
+                            if (item.Type == 2)
+                            {
+                                //PdfReference irefNew = parser.ReadCompressedObject(new PdfObjectID((int)item.Field2), (int)item.Field3);
+                                //document._irefTable.Add(irefNew);
+                                int objectNumber = (int)item.Field2;
+                                if (!objectStreams.ContainsKey(objectNumber))
+                                {
+                                    objectStreams.Add(objectNumber, null);
+                                    PdfObjectID objectID = new PdfObjectID((int)item.Field2);
+                                    parser.ReadIRefsFromCompressedObject(objectID);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 4th: Read compressed objects.
+                for (int idx = 0; idx < count2; idx++)
+                {
+                    PdfReference iref = irefs2[idx];
+                    if (iref.Value is PdfCrossReferenceStream xrefStream)
+                    {
+                        for (int idx2 = 0; idx2 < xrefStream.Entries.Count; idx2++)
+                        {
+                            PdfCrossReferenceStream.CrossReferenceStreamEntry item = xrefStream.Entries[idx2];
+                            // Is type xref to compressed object?
+                            if (item.Type == 2)
+                            {
+                                PdfReference irefNew = parser.ReadCompressedObject(new PdfObjectID((int)item.Field2),
+                                    (int)item.Field3);
+                                Debug.Assert(document._irefTable.Contains(iref.ObjectID));
+                                //document._irefTable.Add(irefNew);
+                            }
+                        }
+                    }
+                }
+
+
+                PdfReference[] irefs = document._irefTable.AllReferences;
+                int count = irefs.Length;
+
+                // Read all indirect objects.
+                for (int idx = 0; idx < count; idx++)
+                {
+                    PdfReference iref = irefs[idx];
+                    if (iref.Value == null)
+                    {
+#if DEBUG_
+                        if (iref.ObjectNumber == 1074)
+                            iref.GetType();
+#endif
+                        try
+                        {
+                            Debug.Assert(document._irefTable.Contains(iref.ObjectID));
+                            PdfObject pdfObject = await parser.ReadObjectAsync(null, iref.ObjectID, false, false);
                             Debug.Assert(pdfObject.Reference == iref);
                             pdfObject.Reference = iref;
                             Debug.Assert(pdfObject.Reference.Value != null, "Something went wrong.");
