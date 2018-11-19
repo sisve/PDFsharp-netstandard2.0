@@ -469,12 +469,12 @@ namespace PdfSharp.Pdf.IO
         /// <summary>
         /// Opens an existing PDF document asynchronously.
         /// </summary>
-        public static async Task<PdfDocument> OpenAsync(
+        public static Task<PdfDocument> OpenAsync(
             Stream stream,
-            PdfDocumentOpenMode openmode = PdfDocumentOpenMode.Modify,
+            PdfDocumentOpenMode openmode,
             PdfPasswordProvider passwordProvider = null)
         {
-            return Open(stream, null, openmode, passwordProvider);
+            return OpenAsync(stream, null, openmode, passwordProvider);
         }
 
         /// <summary>
