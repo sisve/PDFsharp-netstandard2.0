@@ -303,7 +303,7 @@ namespace PdfSharp.Pdf
         /// <summary>
         /// Saves the document to the specified stream.
         /// </summary>
-        public void Save(Stream stream, bool closeStream)
+        public void Save(Stream stream, bool closeStream = false)
         {
             if (!CanModify)
                 throw new InvalidOperationException(PSSR.CannotModify);
@@ -342,16 +342,6 @@ namespace PdfSharp.Pdf
                 if (writer != null)
                     writer.Close(closeStream);
             }
-        }
-
-        /// <summary>
-        /// Saves the document to the specified stream.
-        /// The stream is not closed by this function.
-        /// (Older versions of PDFsharp closes the stream. That was not very useful.)
-        /// </summary>
-        public void Save(Stream stream)
-        {
-            Save(stream, false);
         }
 
         /// <summary>

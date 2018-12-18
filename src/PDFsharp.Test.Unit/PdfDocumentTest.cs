@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
 using System;
 using System.IO;
 using Xunit;
@@ -42,6 +43,28 @@ namespace PdfSharp.Pdf.Test
 
                 pdf.PageCount.Should().BeGreaterThan(pageCount);
                 pdf.Pages[1].Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void TestPermissionsBug_Issue4()
+        {
+            var password = "test1234";
+            using (var pdfStream = fixture.CreateInMemoryPdf(1, pdf =>
+            {
+                pdf.SecuritySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.None;
+                pdf.SecuritySettings.OwnerPassword = password;
+                pdf.SecuritySettings.PermitAccessibilityExtractContent = false;
+                pdf.SecuritySettings.PermitAnnotations = false;
+                pdf.SecuritySettings.PermitAssembleDocument = false;
+                pdf.SecuritySettings.PermitExtractContent = true;
+                pdf.SecuritySettings.PermitFormsFill = false;
+                pdf.SecuritySettings.PermitFullQualityPrint = true;
+                pdf.SecuritySettings.PermitModifyDocument = false;
+                pdf.SecuritySettings.PermitPrint = true;
+            }))
+            {
+                this.Invoking(_ => PdfReader.Open(pdfStream, password, PdfDocumentOpenMode.Modify)).Should().NotThrow<InvalidCastException>();
             }
         }
     }
