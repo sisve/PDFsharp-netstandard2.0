@@ -128,14 +128,11 @@ namespace PdfSharp.Pdf.Security
                 GetType();
 #endif
 
-            PdfDictionary dict;
-            PdfArray array;
-            PdfStringObject str;
-            if ((dict = value as PdfDictionary) != null)
+            if (value is PdfDictionary dict)
                 EncryptDictionary(dict);
-            else if ((array = value as PdfArray) != null)
+            else if (value is PdfArray array)
                 EncryptArray(array);
-            else if ((str = value as PdfStringObject) != null)
+            else if (value is PdfStringObject str)
             {
                 if (str.Length != 0)
                 {
@@ -155,14 +152,11 @@ namespace PdfSharp.Pdf.Security
             PdfName[] names = dict.Elements.KeyNames;
             foreach (KeyValuePair<string, PdfItem> item in dict.Elements)
             {
-                PdfString value1;
-                PdfDictionary value2;
-                PdfArray value3;
-                if ((value1 = item.Value as PdfString) != null)
+                if (item.Value is PdfString value1)
                     EncryptString(value1);
-                else if ((value2 = item.Value as PdfDictionary) != null)
+                else if (item.Value is PdfDictionary value2)
                     EncryptDictionary(value2);
-                else if ((value3 = item.Value as PdfArray) != null)
+                else if (item.Value is PdfArray value3)
                     EncryptArray(value3);
             }
             if (dict.Stream != null)
@@ -186,14 +180,11 @@ namespace PdfSharp.Pdf.Security
             for (int idx = 0; idx < count; idx++)
             {
                 PdfItem item = array.Elements[idx];
-                PdfString value1;
-                PdfDictionary value2;
-                PdfArray value3;
-                if ((value1 = item as PdfString) != null)
+                if (item is PdfString value1)
                     EncryptString(value1);
-                else if ((value2 = item as PdfDictionary) != null)
+                else if (item is PdfDictionary value2)
                     EncryptDictionary(value2);
-                else if ((value3 = item as PdfArray) != null)
+                else if (item is PdfArray value3)
                     EncryptArray(value3);
             }
         }
