@@ -25,5 +25,12 @@ namespace PdfSharp.Pdf.Test
             dict.Elements.Invoking(d => d.GetInteger("/P")).Should().NotThrow<InvalidCastException>();
             dict.Elements.GetInteger("/P").Should().Be(3);
         }
+
+        [Fact]
+        public void TestUIntConversionOverflow()
+        {
+            dict.Elements.Add("/P", new PdfUInteger(uint.MaxValue));
+            dict.Elements.Invoking(d => d.GetInteger("/P")).Should().Throw<InvalidCastException>();
+        }
     }
 }
