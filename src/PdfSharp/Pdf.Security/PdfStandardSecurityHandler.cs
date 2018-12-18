@@ -95,12 +95,12 @@ namespace PdfSharp.Pdf.Security
         {
             get
             {
-                PdfUserAccessPermission permission = (PdfUserAccessPermission)Elements.GetInteger(Keys.P);
-                if ((int)permission == 0)
+                var permission = (PdfUserAccessPermission)Elements.GetUInteger(Keys.P);
+                if (permission == 0u)
                     permission = PdfUserAccessPermission.PermitAll;
                 return permission;
             }
-            set { Elements.SetInteger(Keys.P, (int)value); }
+            set { Elements.SetUInteger(Keys.P, (uint)value); }
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace PdfSharp.Pdf.Security
             byte[] documentID = PdfEncoders.RawEncoding.GetBytes(Owner.Internals.FirstDocumentID);
             byte[] oValue = PdfEncoders.RawEncoding.GetBytes(Elements.GetString(Keys.O));
             byte[] uValue = PdfEncoders.RawEncoding.GetBytes(Elements.GetString(Keys.U));
-            int pValue = Elements.GetInteger(Keys.P);
+            uint pValue = Elements.GetUInteger(Keys.P);
             int rValue = Elements.GetInteger(Keys.R);
 
             if (inputPassword == null)
@@ -295,7 +295,7 @@ namespace PdfSharp.Pdf.Security
         /// <summary>
         /// Generates the user key based on the padded user password.
         /// </summary>
-        void InitWithUserPassword(byte[] documentID, string userPassword, byte[] ownerKey, int permissions, bool strongEncryption)
+        void InitWithUserPassword(byte[] documentID, string userPassword, byte[] ownerKey, uint permissions, bool strongEncryption)
         {
             InitEncryptionKey(documentID, PadPassword(userPassword), ownerKey, permissions, strongEncryption);
             SetupUserKey(documentID);
@@ -304,7 +304,7 @@ namespace PdfSharp.Pdf.Security
         /// <summary>
         /// Generates the user key based on the padded owner password.
         /// </summary>
-        void InitWithOwnerPassword(byte[] documentID, string ownerPassword, byte[] ownerKey, int permissions, bool strongEncryption)
+        void InitWithOwnerPassword(byte[] documentID, string ownerPassword, byte[] ownerKey, uint permissions, bool strongEncryption)
         {
             byte[] userPad = ComputeOwnerKey(ownerKey, PadPassword(ownerPassword), strongEncryption);
             InitEncryptionKey(documentID, userPad, ownerKey, permissions, strongEncryption);
@@ -347,7 +347,7 @@ namespace PdfSharp.Pdf.Security
         /// <summary>
         /// Computes the encryption key.
         /// </summary>
-        void InitEncryptionKey(byte[] documentID, byte[] userPad, byte[] ownerKey, int permissions, bool strongEncryption)
+        void InitEncryptionKey(byte[] documentID, byte[] userPad, byte[] ownerKey, uint permissions, bool strongEncryption)
         {
             //#if !SILVERLIGHT
             _ownerKey = ownerKey;
@@ -547,7 +547,7 @@ namespace PdfSharp.Pdf.Security
         {
             //#if !SILVERLIGHT
             Debug.Assert(_document._securitySettings.DocumentSecurityLevel != PdfDocumentSecurityLevel.None);
-            int permissions = (int)Permission;
+            var permissions = (uint)Permission;
             bool strongEncryption = _document._securitySettings.DocumentSecurityLevel == PdfDocumentSecurityLevel.Encrypted128Bit;
 
             PdfInteger vValue;
@@ -574,10 +574,10 @@ namespace PdfSharp.Pdf.Security
                 _ownerPassword = _userPassword;
 
             // Correct permission bits
-            permissions |= (int)(strongEncryption ? (uint)0xfffff0c0 : (uint)0xffffffc0);
-            permissions &= unchecked((int)0xfffffffc);
+            permissions |= strongEncryption ? 0xfffff0c0 : 0xffffffc0;
+            permissions &= 0xfffffffc;
 
-            PdfInteger pValue = new PdfInteger(permissions);
+            var pValue = new PdfUInteger(permissions);
 
             Debug.Assert(_ownerPassword.Length > 0, "Empty owner password.");
             byte[] userPad = PadPassword(_userPassword);

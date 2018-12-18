@@ -408,6 +408,45 @@ namespace PdfSharp.Pdf
             }
 
             /// <summary>
+            /// Converts the specified value to unsigned integer.
+            /// If the value does not exist, the function returns 0.
+            /// If the value is not convertible, the function throws an InvalidCastException.
+            /// </summary>
+            public uint GetUInteger(string key, bool create = false)
+            {
+                var obj = this[key];
+                if (obj == null)
+                {
+                    if (create)
+                        this[key] = new PdfUInteger();
+                    return 0u;
+                }
+                if (obj is PdfReference reference)
+                    obj = reference.Value;
+
+                switch (obj)
+                {
+                    case PdfUInteger uInteger:
+                        return uInteger.Value;
+                    case PdfUIntegerObject uIntegerObject:
+                        return uIntegerObject.Value;
+                    case PdfInteger integer:
+                        return Convert.ToUInt32(integer.Value);
+                    case PdfIntegerObject integerObject:
+                        return Convert.ToUInt32(integerObject.Value);
+                }
+                throw new InvalidCastException("GetUInteger: Object is not an unsigned integer.");
+            }
+
+            /// <summary>
+            /// Sets the entry to an unsigned integer value.
+            /// </summary>
+            public void SetUInteger(string key, uint value)
+            {
+                this[key] = new PdfUInteger(value);
+            }
+
+            /// <summary>
             /// Converts the specified value to double.
             /// If the value does not exist, the function returns 0.
             /// If the value is not convertible, the function throws an InvalidCastException.
