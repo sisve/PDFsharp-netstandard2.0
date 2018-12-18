@@ -375,7 +375,7 @@ namespace PdfSharp.Pdf
             /// </summary>
             public int GetInteger(string key, bool create = false)
             {
-                object obj = this[key];
+                var obj = this[key];
                 if (obj == null)
                 {
                     if (create)
@@ -385,12 +385,17 @@ namespace PdfSharp.Pdf
                 if (obj is PdfReference reference)
                     obj = reference.Value;
 
-                if (obj is PdfInteger integer)
-                    return integer.Value;
-
-                if (obj is PdfIntegerObject integerObject)
-                    return integerObject.Value;
-
+                switch (obj)
+                {
+                    case PdfInteger integer:
+                        return integer.Value;
+                    case PdfIntegerObject integerObject:
+                        return integerObject.Value;
+                    case PdfUInteger uInteger:
+                        return Convert.ToInt32(uInteger.Value);
+                    case PdfUIntegerObject uIntegerObject:
+                        return Convert.ToInt32(uIntegerObject.Value);
+                }
                 throw new InvalidCastException("GetInteger: Object is not an integer.");
             }
 
