@@ -400,9 +400,9 @@ namespace PdfSharp.Pdf
                     case PdfIntegerObject integerObject:
                         return integerObject.Value;
                     case PdfUInteger uInteger when uInteger.Value < int.MaxValue:
-                        return Convert.ToInt32(uInteger.Value);
+                        return (int)uInteger.Value;
                     case PdfUIntegerObject uIntegerObject when uIntegerObject.Value < int.MaxValue:
-                        return Convert.ToInt32(uIntegerObject.Value);
+                        return (int)uIntegerObject.Value;
                 }
                 throw new InvalidCastException("GetInteger: Object is not an integer.");
             }
@@ -439,9 +439,9 @@ namespace PdfSharp.Pdf
                     case PdfUIntegerObject uIntegerObject:
                         return uIntegerObject.Value;
                     case PdfInteger integer:
-                        return Convert.ToUInt32(integer.Value);
+                        return (uint)integer.Value;
                     case PdfIntegerObject integerObject:
-                        return Convert.ToUInt32(integerObject.Value);
+                        return (uint)integerObject.Value;
                 }
                 throw new InvalidCastException("GetUInteger: Object is not an unsigned integer.");
             }
