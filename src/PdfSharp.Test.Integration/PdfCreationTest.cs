@@ -14,9 +14,7 @@ namespace PdfSharp.Test.Integration
     {
         public PdfCreationTest()
         {
-            if (Directory.Exists("temp"))
-                Directory.Delete("temp", true);
-            Directory.CreateDirectory("temp");
+            Helpers.ResetTempFolder();
         }
 
         [Fact]
