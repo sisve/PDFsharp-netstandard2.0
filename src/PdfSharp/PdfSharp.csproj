@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.1.2</Version>
+    <Version>1.2.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>TRACE;CORE;CORE_WITH_GDI</DefineConstants>
     <AssemblyName>PdfSharp.netstandard2.0</AssemblyName>
@@ -19,6 +19,7 @@
     <RepositoryUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/jmanm/PDFsharp-netstandard2.0/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageReleaseNotes>Adds support for 128-bit AES encryption. See https://github.com/empira/PDFsharp/pull/75 for details.</PackageReleaseNotes>
   </PropertyGroup>
 
 
