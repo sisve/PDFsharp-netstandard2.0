@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>1.1.2</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DefineConstants>$(DefineConstants);CORE;CORE_WITH_GDI</DefineConstants>
+    <DefineConstants>TRACE;CORE;CORE_WITH_GDI</DefineConstants>
     <AssemblyName>PdfSharp.netstandard2.0</AssemblyName>
     <PackageId>PdfSharp.netstandard</PackageId>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
