@@ -191,7 +191,6 @@ namespace PdfSharp.Pdf
             //int count = Elements.Count;
             PdfName[] keys = Elements.KeyNames;
 
-#if DEBUG
             if (_stream != null)
             {
                 if (writer.SecurityHandler != null)
@@ -203,7 +202,6 @@ namespace PdfSharp.Pdf
                 }
                 Elements[PdfStream.Keys.Length] = new PdfInteger(_stream.Length);
             }
-#endif
 
 #if DEBUG
             // Sort keys for debugging purposes. Comparing PDF files with for example programs like
