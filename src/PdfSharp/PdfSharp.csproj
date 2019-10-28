@@ -14,12 +14,12 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <RootNamespace>PdfSharp</RootNamespace>
-    <Authors>PDFSharp Team</Authors>
+    <Authors></Authors>
     <PackageProjectUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jmanm/PDFsharp-netstandard2.0</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/jmanm/PDFsharp-netstandard2.0/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>Fix bad encryption when saving password-protected files.</PackageReleaseNotes>
+    <PackageReleaseNotes>Incorporate upstream changes from empira/pdfsharp.</PackageReleaseNotes>
   </PropertyGroup>
 
 
