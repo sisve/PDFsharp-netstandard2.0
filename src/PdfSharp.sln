@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2037
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFsharp", "PdfSharp\PDFsharp.csproj", "{5A6055BC-BF86-4FDD-9F62-0109DB7A303B}"
 EndProject
@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfSharp.Test.Unit", "PdfSh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "profile", "profile", "{5942930F-4655-4796-9672-E1EA2E7A9BE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfSharp.Performance.Profile", "PdfSharp.Performance.Profile\PdfSharp.Performance.Profile.csproj", "{5A9E2A88-E5F0-4AE7-8B7D-9F5968BE3FAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfSharp.Performance.Profile", "PdfSharp.Performance.Profile\PdfSharp.Performance.Profile.csproj", "{5A9E2A88-E5F0-4AE7-8B7D-9F5968BE3FAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -37,10 +37,6 @@
     <AssemblyOriginatorKeyFile>StrongnameKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\PdfSharp\root\VersionInfo.cs">
       <Link>root\VersionInfo.cs</Link>
     </Compile>
