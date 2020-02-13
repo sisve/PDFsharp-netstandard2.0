@@ -9,5 +9,5 @@ http://pdfsharp.net/
 ## Installation
 
 ```
-> Install-Package PdfSharp.netstandard -Version 1.1.2
+> Install-Package PdfSharp.netstandard -Version 1.3.2
 ```
