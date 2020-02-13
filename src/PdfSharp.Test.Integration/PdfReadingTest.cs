@@ -2,6 +2,7 @@
 using PdfSharp.Pdf.IO;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PdfSharp.Test.Integration
@@ -32,6 +33,15 @@ namespace PdfSharp.Test.Integration
             var path = Path.Combine("data", fileName);
             var doc = PdfReader.Open(path);
             doc.PageCount.Should().Be(expectedPageCount);
+        }
+
+        [Theory]
+        [InlineData("circular kids reference.pdf")]
+        public void TestCorruptDocument(string fileName)
+        {
+            var path = Path.Combine("data", fileName);
+            var doc = PdfReader.Open(path);
+            doc.PageCount.Should().Be(0);
         }
     }
 }
