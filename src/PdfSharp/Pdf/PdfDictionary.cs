@@ -39,6 +39,7 @@ using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.Filters;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.Internal;
+using PdfSharp.SharpZipLib;
 
 namespace PdfSharp.Pdf
 {
@@ -1681,7 +1682,15 @@ namespace PdfSharp.Pdf
                     if (filter != null)
                     {
                         // PDFsharp can only uncompress streams that are compressed with the ZIP or LZH algorithm.
-                        byte[] bytes = Filtering.Decode(_value, filter);
+                        byte[] bytes;
+
+                        try {
+                            bytes = Filtering.Decode(_value, filter);
+                        } catch (SharpZipBaseException) {
+                            _ownerDictionary._document.SecurityHandler.DecryptObject(_ownerDictionary);
+                            bytes = Filtering.Decode(_value, filter);
+                        }
+
                         if (bytes != null)
                         {
                             _ownerDictionary.Elements.Remove(Keys.Filter);
